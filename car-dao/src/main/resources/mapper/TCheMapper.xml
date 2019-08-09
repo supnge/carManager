@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.carManager.dao.TCheMapper">
+  <resultMap id="BaseResultMap" type="com.carManager.domain.TChe">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="chepai" jdbcType="VARCHAR" property="chepai" />
+    <result column="chexing" jdbcType="VARCHAR" property="chexing" />
+    <result column="chuchangriqi" jdbcType="VARCHAR" property="chuchangriqi" />
+    <result column="zaizhongliang" jdbcType="VARCHAR" property="zaizhongliang" />
+    <result column="siji_id" jdbcType="INTEGER" property="sijiId" />
+    <result column="shiyouleixing" jdbcType="VARCHAR" property="shiyouleixing" />
+    <result column="del" jdbcType="VARCHAR" property="del" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, chepai, chexing, chuchangriqi, zaizhongliang, siji_id, shiyouleixing, del
+  </sql>
+  <select id="selectByExample" parameterType="com.carManager.domain.TCheExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_che
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_che
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_che
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.carManager.domain.TCheExample">
+    delete from t_che
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.carManager.domain.TChe">
+    insert into t_che (id, chepai, chexing, 
+      chuchangriqi, zaizhongliang, siji_id, 
+      shiyouleixing, del)
+    values (#{id,jdbcType=INTEGER}, #{chepai,jdbcType=VARCHAR}, #{chexing,jdbcType=VARCHAR}, 
+      #{chuchangriqi,jdbcType=VARCHAR}, #{zaizhongliang,jdbcType=VARCHAR}, #{sijiId,jdbcType=INTEGER}, 
+      #{shiyouleixing,jdbcType=VARCHAR}, #{del,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.carManager.domain.TChe">
+    insert into t_che
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="chepai != null">
+        chepai,
+      </if>
+      <if test="chexing != null">
+        chexing,
+      </if>
+      <if test="chuchangriqi != null">
+        chuchangriqi,
+      </if>
+      <if test="zaizhongliang != null">
+        zaizhongliang,
+      </if>
+      <if test="sijiId != null">
+        siji_id,
+      </if>
+      <if test="shiyouleixing != null">
+        shiyouleixing,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="chepai != null">
+        #{chepai,jdbcType=VARCHAR},
+      </if>
+      <if test="chexing != null">
+        #{chexing,jdbcType=VARCHAR},
+      </if>
+      <if test="chuchangriqi != null">
+        #{chuchangriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="zaizhongliang != null">
+        #{zaizhongliang,jdbcType=VARCHAR},
+      </if>
+      <if test="sijiId != null">
+        #{sijiId,jdbcType=INTEGER},
+      </if>
+      <if test="shiyouleixing != null">
+        #{shiyouleixing,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.carManager.domain.TCheExample" resultType="java.lang.Long">
+    select count(*) from t_che
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_che
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.chepai != null">
+        chepai = #{record.chepai,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chexing != null">
+        chexing = #{record.chexing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chuchangriqi != null">
+        chuchangriqi = #{record.chuchangriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zaizhongliang != null">
+        zaizhongliang = #{record.zaizhongliang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sijiId != null">
+        siji_id = #{record.sijiId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shiyouleixing != null">
+        shiyouleixing = #{record.shiyouleixing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.del != null">
+        del = #{record.del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_che
+    set id = #{record.id,jdbcType=INTEGER},
+      chepai = #{record.chepai,jdbcType=VARCHAR},
+      chexing = #{record.chexing,jdbcType=VARCHAR},
+      chuchangriqi = #{record.chuchangriqi,jdbcType=VARCHAR},
+      zaizhongliang = #{record.zaizhongliang,jdbcType=VARCHAR},
+      siji_id = #{record.sijiId,jdbcType=INTEGER},
+      shiyouleixing = #{record.shiyouleixing,jdbcType=VARCHAR},
+      del = #{record.del,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.carManager.domain.TChe">
+    update t_che
+    <set>
+      <if test="chepai != null">
+        chepai = #{chepai,jdbcType=VARCHAR},
+      </if>
+      <if test="chexing != null">
+        chexing = #{chexing,jdbcType=VARCHAR},
+      </if>
+      <if test="chuchangriqi != null">
+        chuchangriqi = #{chuchangriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="zaizhongliang != null">
+        zaizhongliang = #{zaizhongliang,jdbcType=VARCHAR},
+      </if>
+      <if test="sijiId != null">
+        siji_id = #{sijiId,jdbcType=INTEGER},
+      </if>
+      <if test="shiyouleixing != null">
+        shiyouleixing = #{shiyouleixing,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.carManager.domain.TChe">
+    update t_che
+    set chepai = #{chepai,jdbcType=VARCHAR},
+      chexing = #{chexing,jdbcType=VARCHAR},
+      chuchangriqi = #{chuchangriqi,jdbcType=VARCHAR},
+      zaizhongliang = #{zaizhongliang,jdbcType=VARCHAR},
+      siji_id = #{sijiId,jdbcType=INTEGER},
+      shiyouleixing = #{shiyouleixing,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
