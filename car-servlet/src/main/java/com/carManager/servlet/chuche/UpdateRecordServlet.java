@@ -1,8 +1,11 @@
 package com.carManager.servlet.chuche;
 
+import com.carManager.domain.PageResult;
 import com.carManager.domain.TChuche;
 import com.carManager.domain.TSiji;
+import com.carManager.service.TCheService;
 import com.carManager.service.TChuCheService;
+import com.carManager.service.impl.TCheServiceImpl;
 import com.carManager.service.impl.TChuCheServiceImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -14,10 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.Iterator;
 
 @WebServlet("/UpdateRecordServlet")
 public class UpdateRecordServlet extends HttpServlet {
     TChuCheService tChuCheService = new TChuCheServiceImpl();
+    TCheService tCheService = new TCheServiceImpl();
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,9 +43,19 @@ public class UpdateRecordServlet extends HttpServlet {
             BeanUtils.populate(tChuche, req.getParameterMap());
             tChuCheService.updateRecord(tChuche);
 
-            //跳转
-            req.setAttribute("recordPageResult", tChuCheService.findRecordsWithPageCount(Integer.parseInt(page)));
-            req.getRequestDispatcher("/admin/products/recordList.jsp").forward(req, resp);
+            PageResult<TChuche> recordPageResult = tChuCheService.findRecordsWithPageCount(Integer.parseInt(page));
+
+            if(recordPageResult !=null) {
+
+                for (Iterator iterator = recordPageResult.getList().iterator(); iterator.hasNext(); ) {
+                    tChuche = (TChuche) iterator.next();
+                    tChuche.setChepai(tCheService.findCarById(tChuche.getCheId()).getChepai());
+                }
+
+                //跳转
+                req.setAttribute("recordPageResult", recordPageResult);
+                req.getRequestDispatcher("/admin/products/recordList.jsp").forward(req, resp);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

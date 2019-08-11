@@ -11,15 +11,10 @@
 <script language="javascript"
 	src="${pageContext.request.contextPath}/admin/js/check.js"></script>
 	<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath}/admin/js/My97DatePicker/WdatePicker.js"></script>
-	<link href="${pageContext.request.contextPath}/admin/css/jquery.searchableSelect.css" rel="stylesheet" type="text/css">
-	<script src="${pageContext.request.contextPath}/admin/jquery/jquery-1.11.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/admin/jquery/jquery.searchableSelect.js"></script>
+
 
 </HEAD>
 <script type="text/javascript">
-	$(function(){
-		$('select').searchableSelect();
-
 		//设置类别的默认值
 		function setProductCategory(t,c) {
 			var category = document.getElementById("shiyou");
@@ -40,8 +35,6 @@
 				}
 			}
 		};
-	});
-
 
 </script>
 <body onload="setProductCategory('${record.shiyou}', '${record.cheId }')">
@@ -53,6 +46,7 @@
 			<tr>
 				<td class="ta_01" align="center" bgColor="#afd1f3" colSpan="4"
 					height="26"><strong><STRONG>编辑出车记录</STRONG> </strong></td>
+				<input type="hidden" name="id" value="${record.id }">
 			</tr>
 
 			<tr>
