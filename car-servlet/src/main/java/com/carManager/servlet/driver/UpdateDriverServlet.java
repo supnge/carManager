@@ -1,5 +1,6 @@
 package com.carManager.servlet.driver;
 
+import com.carManager.domain.PageResult;
 import com.carManager.domain.TSiji;
 import com.carManager.service.TSijiService;
 import com.carManager.service.impl.TSijiServiceImpl;
@@ -43,8 +44,10 @@ public class UpdateDriverServlet extends HttpServlet {
             tSijiService.updateDriver(tSiji);
 
             //跳转
-            req.setAttribute("pageResult", tSijiService.findDriversWithPageCount(Integer.parseInt(page)));
-            req.getRequestDispatcher("/admin/products/driverList.jsp").forward(req, resp);
+            PageResult<TSiji> pageResult = tSijiService.findDriversWithPageCount(Integer.parseInt(page));
+
+            DriverPageResultUtils.forwardToListPage(pageResult, req, resp);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

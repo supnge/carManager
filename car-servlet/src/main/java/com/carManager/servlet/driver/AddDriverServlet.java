@@ -45,11 +45,9 @@ public class AddDriverServlet extends HttpServlet {
 
             PageResult<TSiji> pageResult = tSijiService.findDriversWithPageCount(Integer.parseInt(page));
 
-            if (pageResult != null) {
 
-                req.setAttribute("pageResult", pageResult);
-                req.getRequestDispatcher("/admin/products/driverList.jsp").forward(req, resp);
-            }
+            DriverPageResultUtils.forwardToListPage(pageResult, req, resp);
+
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();
