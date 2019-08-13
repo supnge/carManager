@@ -7,9 +7,13 @@ public class THetong {
 
     private Integer cheId;
 
+    private String chepai;
+
     private String photoId;
 
     private Integer huowuId;
+
+    private String huowuName;
 
     private String insertDate;
 
@@ -53,6 +57,14 @@ public class THetong {
         this.cheId = cheId;
     }
 
+    public String getChepai() {
+        return chepai;
+    }
+
+    public void setChepai(String chepai) {
+        this.chepai = chepai;
+    }
+
     public String getPhotoId() {
         return photoId;
     }
@@ -67,6 +79,14 @@ public class THetong {
 
     public void setHuowuId(Integer huowuId) {
         this.huowuId = huowuId;
+    }
+
+    public String getHuowuName() {
+        return huowuName;
+    }
+
+    public void setHuowuName(String huowuName) {
+        this.huowuName = huowuName;
     }
 
     public String getInsertDate() {

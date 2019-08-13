@@ -1,5 +1,4 @@
-package com.carManager.servlet.huowu;
-
+package com.carManager.servlet.hetong;
 
 import com.carManager.domain.TChe;
 import com.carManager.domain.THuowu;
@@ -17,28 +16,22 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/FindGoodsByIdServlet")
-public class FindGoodsByIdServlet extends HttpServlet {
-    THuoWuService tHuoWuService = new THuoWuServiceImpl();
+@WebServlet("/ContractAddServlet")
+public class ContractAddServlet extends HttpServlet {
+    // 返回所有的车辆记录
     TCheService tCheService = new TCheServiceImpl();
+    THuoWuService tHuoWuService = new THuoWuServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-
-        //根据ID进行查询
-        THuowu goods = new THuowu();
         try {
-            goods= tHuoWuService.findGoodsByGoodId(Integer.parseInt(id));
-            req.setAttribute("goods", goods);
-            List<TChe> carList = tCheService.findAllCars();
-            req.setAttribute("carList", carList);
-
-            req.getRequestDispatcher("/admin/products/goodsEdit.jsp").forward(req, resp);
-
+            List<TChe> tCheList = tCheService.findAllCars();
+            req.setAttribute("tCheList", tCheList);
+            List<THuowu> goodsList = tHuoWuService.findAllGoods();
+            req.setAttribute("goodsList", goodsList);
+            req.getRequestDispatcher("/admin/products/contractAdd.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -46,7 +46,7 @@ public class AddCarServlet extends HttpServlet {
 
             if (carPageResult != null) {
 
-                req.setAttribute("carPageResult", carPageResult);
+                req.setAttribute("carPageResult", CarPageResultUtils.putDriverName(carPageResult));
                 req.getRequestDispatcher("/admin/products/carList.jsp").forward(req, resp);
             }
 

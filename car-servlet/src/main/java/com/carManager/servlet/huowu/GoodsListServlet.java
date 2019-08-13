@@ -30,11 +30,7 @@ public class GoodsListServlet extends HttpServlet {
         try {
             PageResult<THuowu> goodsPageResult = tHuoWuService.findGoodsWithPageCount(Integer.parseInt(page));
 
-            if (goodsPageResult != null) {
-
-                req.setAttribute("goodsPageResult", goodsPageResult);
-                req.getRequestDispatcher("/admin/products/goodsList.jsp").forward(req, resp);
-            }
+            GoodsPageResultUtils.forwardToListPage(goodsPageResult, req, resp);
 
         } catch (SQLException e) {
             e.printStackTrace();

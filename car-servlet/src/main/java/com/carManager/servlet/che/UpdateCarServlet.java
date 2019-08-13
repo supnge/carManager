@@ -46,13 +46,8 @@ public class UpdateCarServlet extends HttpServlet {
             PageResult<TChe> tChePageResult = tCheService.findCarsWithPageCount(Integer.parseInt(page));
 
             if (tChePageResult != null) {
-                for (Iterator iterator = tChePageResult.getList().iterator(); iterator.hasNext(); ) {
-                    TChe tChe1 = (TChe) iterator.next();
-                    tChe1.setDriverName(tSijiService.findSijiById(tChe1.getSijiId()).getName());
-                }
-
                 //跳转
-                req.setAttribute("carPageResult", tChePageResult);
+                req.setAttribute("carPageResult", CarPageResultUtils.putDriverName(tChePageResult));
                 req.getRequestDispatcher("/admin/products/carList.jsp").forward(req, resp);
             }
 

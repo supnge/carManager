@@ -8,13 +8,24 @@
 	rel="stylesheet" type="text/css" />
 <script language="javascript"
 	src="${pageContext.request.contextPath}/admin/js/public.js"></script>
+	<link href="${pageContext.request.contextPath}/admin/css/jquery.searchableSelect.css" rel="stylesheet"
+		  type="text/css">
+	<script src="${pageContext.request.contextPath}/admin/jquery/jquery-1.11.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/admin/jquery/jquery.searchableSelect.js"></script>
 <script type="text/javascript">
+
+	$(function () {
+		$('#tel').searchableSelect();
+		$('#oilCard').searchableSelect();
+
+	});
+
 	function addProduct() {
 		window.location.href = "${pageContext.request.contextPath}/admin/products/driverAdd.jsp";
 	}
 
 	function deleteById(id,name) {
-		if(confirm('是否要删除[' + name + ']?')){
+		if(confirm('司机信息关联众多，请谨慎删除！！！ 确认是否要删除[' + name + ']?')){
 			location.href = '${pageContext.request.contextPath}/DeleteDriverByIdServlet?id=' + id;
 		}
 	}
@@ -73,8 +84,13 @@
 							<tr>
 								<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
 									姓名</td>
-								<td class="ta_01" bgColor="#ffffff"><input type="text"
-									name="name" size="15" value="" id="Form1_userName2" class="bg" />
+								<td class="ta_01" bgColor="#ffffff">
+									<select id="cheIdSeclect"  class="textbox combo" name="name"  style="width: 180px; height: 35px;">
+										<option value="">--请选择--</option>
+										<c:forEach items="${pageResult.list}" var="driver">
+											<option value="${driver.name}">${driver.name}</option>
+										</c:forEach>
+									</select>
 								</td>
 								<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
 									性别：</td>
@@ -90,14 +106,24 @@
 							<tr>
 								<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
 									手机号码：</td>
-								<td class="ta_01" bgColor="#ffffff"><input type="text"
-									name="tel" size="15" value="" id="Form1_userName" class="bg" />
+								<td class="ta_01" bgColor="#ffffff">
+									<select id="tel"  class="textbox combo" name="tel"  style="width: 180px; height: 35px;">
+										<option value="">--请选择--</option>
+										<c:forEach items="${pageResult.list}" var="driver">
+											<option value="${driver.tel}">${driver.tel}</option>
+										</c:forEach>
+									</select>
 								</td>
 
 								<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
 									油卡号：</td>
 								<td class="ta_01" bgColor="#ffffff">
-									<input type="text" name="oilCard" size="15" value="" id="Form1_oilCard" class="bg" />
+									<select id="oilCard"  class="textbox combo" name="oilCard"  style="width: 180px; height: 35px;">
+										<option value="">--请选择--</option>
+										<c:forEach items="${pageResult.list}" var="driver">
+											<option value="${driver.oilCard}">${driver.oilCard}</option>
+										</c:forEach>
+									</select>
 								</td>
 							</tr>
 

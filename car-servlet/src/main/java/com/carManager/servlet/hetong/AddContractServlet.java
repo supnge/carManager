@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,11 +46,7 @@ public class AddContractServlet extends HttpServlet {
 
             PageResult<THetong> contractPageResult = tHeTongService.findContractsWithPageCount(Integer.parseInt(page));
 
-            if (contractPageResult != null) {
-
-                req.setAttribute("contractPageResult", contractPageResult);
-                req.getRequestDispatcher("/admin/products/contractList.jsp").forward(req, resp);
-            }
+            ContractPageResultUtils.forwardToListPage(contractPageResult, req, resp);
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();

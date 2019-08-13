@@ -14,8 +14,20 @@
 </HEAD>
 <script type="text/javascript">
 
+	//设置类别的默认值
+	function setProductCategory(c) {
+		var category = document.getElementById("cheId");
+
+		var ops = category.options;
+		for (var i = 0; i < ops.length; i++) {
+
+			if (ops[i].value == c) {
+				ops[i].selected = true;
+			}
+		}
+	};
 </script>
-<body >
+<body onload="setProductCategory('${contract.cheId }')">
 	<form id="userAction_save_do" name="Form1"
 		action="${pageContext.request.contextPath}/UpdateContractServlet" method="post">
 	
@@ -33,14 +45,23 @@
 				</td>
 				<td align="center" bgColor="#f5fafe" class="ta_01">车辆编号：</td>
 				<td class="ta_01" bgColor="#ffffff" width="200px">
-					<input type="text" width="100%" name="cheId" class="bg" value="${contract.cheId}"/>
+					<select id="cheId" class="textbox combo" name="cheId" style="width: 180px; height: 35px;">
+						<c:forEach items="${carList}" var="car">
+							<option value="${car.id}">${car.chepai}</option>
+						</c:forEach>
+					</select>
 				</td>
 
 			</tr>
 			<tr>
-				<td align="center" bgColor="#f5fafe" class="ta_01">货物编号：</td>
-				<td class="ta_01" bgColor="#ffffff"><input type="text"
-														   name="huowuId" class="bg" value="${contract.huowuId}"/></td>
+				<td align="center" bgColor="#f5fafe" class="ta_01">货物名称：</td>
+				<td class="ta_01" bgColor="#ffffff">
+					<select id="huowuId" class="textbox combo" name="huowuId" style="width: 180px; height: 35px;">
+						<c:forEach items="${goodsList}" var="goods">
+							<option value="${goods.id}">${goods.name}</option>
+						</c:forEach>
+					</select>
+				</td>
 			</tr>
 
 			<tr>

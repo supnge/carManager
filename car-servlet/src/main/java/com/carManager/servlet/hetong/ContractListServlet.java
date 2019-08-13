@@ -30,12 +30,7 @@ public class ContractListServlet extends HttpServlet {
         try {
             PageResult<THetong> contractPageResult = tHeTongService.findContractsWithPageCount(Integer.parseInt(page));
 
-            if (contractPageResult != null) {
-
-                req.setAttribute("contractPageResult", contractPageResult);
-                req.getRequestDispatcher("/admin/products/contractList.jsp").forward(req, resp);
-            }
-
+            ContractPageResultUtils.forwardToListPage(contractPageResult, req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }

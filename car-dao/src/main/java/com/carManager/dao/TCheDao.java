@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface TCheDao {
 
+
+
     public List<TChe> findAllCars() throws SQLException;
 
     public PageResult<TChe> findCarsWithPageCount(int page) throws SQLException;

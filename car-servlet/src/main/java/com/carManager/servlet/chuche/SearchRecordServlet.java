@@ -1,11 +1,13 @@
 package com.carManager.servlet.chuche;
 
 import com.carManager.domain.PageResult;
+import com.carManager.domain.TChe;
 import com.carManager.domain.TChuche;
 import com.carManager.service.TCheService;
 import com.carManager.service.TChuCheService;
 import com.carManager.service.impl.TCheServiceImpl;
 import com.carManager.service.impl.TChuCheServiceImpl;
+import com.carManager.servlet.che.CarUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Iterator;
+import java.util.*;
 
 @WebServlet("/SearchRecordServlet")
 public class SearchRecordServlet extends HttpServlet {
@@ -34,15 +36,13 @@ public class SearchRecordServlet extends HttpServlet {
         if (page == null || "".equals(page)) {
             page = "1";
         }
+        List<TChe> carList = new ArrayList<>();
 
         try {
-            PageResult<TChuche> recordPageResult = tChuCheService.searchRecordByCondition( cheId,  start1,  start2,  end1,  end2, Integer.parseInt(page));
-            for(Iterator iterator = recordPageResult.getList().iterator(); iterator.hasNext();){
-                TChuche tChuche = (TChuche)iterator.next();
-                tChuche.setChepai(tCheService.findCarById(tChuche.getCheId()).getChepai());
-            }
-            req.setAttribute("recordPageResult", recordPageResult);
-            req.getRequestDispatcher("/admin/products/recordList.jsp").forward(req, resp);
+            PageResult<TChuche> recordPageResult = tChuCheService.searchRecordByCondition(cheId, start1, start2, end1, end2, Integer.parseInt(page));
+
+            RecordPageResultUtils.forwardToListPage(recordPageResult, req, resp);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

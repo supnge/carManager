@@ -42,13 +42,9 @@ public class AddGoodsServlet extends HttpServlet {
 
             tHuoWuService.insertGood(tHuowu);
 
-            PageResult<THuowu> pageResult = tHuoWuService.findGoodsWithPageCount(Integer.parseInt(page));
+            PageResult<THuowu> goodsPageResult = tHuoWuService.findGoodsWithPageCount(Integer.parseInt(page));
 
-            if (pageResult != null) {
-
-                req.setAttribute("goodsPageResult", pageResult);
-                req.getRequestDispatcher("/admin/products/goodsList.jsp").forward(req, resp);
-            }
+            GoodsPageResultUtils.forwardToListPage(goodsPageResult, req, resp);
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();

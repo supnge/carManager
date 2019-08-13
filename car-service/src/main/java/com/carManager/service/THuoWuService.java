@@ -4,8 +4,12 @@ import com.carManager.domain.PageResult;
 import com.carManager.domain.THuowu;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface THuoWuService {
+
+    public List<THuowu> findAllGoods() throws SQLException;
+
     public PageResult<THuowu> findGoodsWithPageCount(int page) throws SQLException;
 
     public THuowu findGoodsByGoodId(int id) throws SQLException;

@@ -9,6 +9,8 @@ public class THuowu {
 
     private Integer carId;
 
+    private String chepai;
+
     private Float carZaizhong;
 
     private Float zongjia;
@@ -67,6 +69,14 @@ public class THuowu {
 
     public void setCarId(Integer carId) {
         this.carId = carId;
+    }
+
+    public String getChepai() {
+        return chepai;
+    }
+
+    public void setChepai(String chepai) {
+        this.chepai = chepai;
     }
 
     public Float getCarZaizhong() {

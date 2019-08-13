@@ -7,9 +7,15 @@ import com.carManager.domain.THuowu;
 import com.carManager.service.THuoWuService;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class THuoWuServiceImpl implements THuoWuService {
     THuoWuDao tHuoWuDao = new THuoWuDaoImpl();
+
+    @Override
+    public List<THuowu> findAllGoods() throws SQLException {
+        return tHuoWuDao.findAllHuowu();
+    }
 
     @Override
     public PageResult<THuowu> findGoodsWithPageCount(int page) throws SQLException {

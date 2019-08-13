@@ -1,6 +1,8 @@
 package com.carManager.servlet.che;
 
 
+import com.carManager.domain.PageResult;
+import com.carManager.domain.TChe;
 import com.carManager.service.TCheService;
 import com.carManager.service.impl.TCheServiceImpl;
 
@@ -28,9 +30,11 @@ public class DeleteCarByIdServlet extends HttpServlet {
         try {
             tCheService.deleteCarById(Integer.parseInt(id));
             //跳转
-            req.setAttribute("carPageResult", tCheService.findCarsWithPageCount(Integer.parseInt(page)));
-            req.getRequestDispatcher("/admin/products/carList.jsp").forward(req, resp);
-
+            PageResult<TChe> carPageResult = tCheService.findCarsWithPageCount(Integer.parseInt(page));
+            if(carPageResult !=null) {
+                req.setAttribute("carPageResult", CarPageResultUtils.putDriverName(carPageResult));
+                req.getRequestDispatcher("/admin/products/carList.jsp").forward(req, resp);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

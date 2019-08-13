@@ -8,9 +8,21 @@
           rel="stylesheet" type="text/css"/>
     <script language="javascript"
             src="${pageContext.request.contextPath}/admin/js/public.js"></script>
+
+    <%--下拉选择--%>
+    <link href="${pageContext.request.contextPath}/admin/css/jquery.searchableSelect.css" rel="stylesheet"
+          type="text/css">
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery-1.11.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery.searchableSelect.js"></script>
+
     <script type="text/javascript">
+        $(function () {
+            $('select').searchableSelect();
+        });
+
         function addProduct() {
-            window.location.href = "${pageContext.request.contextPath}/admin/products/contractAdd.jsp";
+            location.href = '${pageContext.request.contextPath}/ContractAddServlet';
+            <%--window.location.href = "${pageContext.request.contextPath}/admin/products/contractAdd.jsp";--%>
         }
 
         function deleteById(id, name) {
@@ -82,7 +94,12 @@
                             车辆编号
                         </td>
                         <td class="ta_01" bgColor="#ffffff">
-                            <input type="text" name="cheId" size="15" value="" id="carId" class="bg"/>
+                            <select id="cheIdSeclect"  class="textbox combo" name="cheId"  style="width: 180px; height: 35px;">
+                                <option value="">--请选择车牌号--</option>
+                                <c:forEach items="${cheIdInContract}" var="record">
+                                    <option value="${record.id}">${record.chepai}</option>
+                                </c:forEach>
+                            </select>
                         </td>
                     </tr>
 
@@ -90,9 +107,13 @@
                         <td height="22" align="center" bgColor="#f5fafe" class="ta_01">
                             货物编码：
                         </td>
-                        <td class="ta_01" bgColor="#ffffff"><input type="text"
-                                                                   name="huowuId" size="15" value="" id="Form1_huowuId"
-                                                                   class="bg"/>
+                        <td class="ta_01" bgColor="#ffffff">
+                            <select id="huowuIdSeclect"  class="textbox combo" name="huowuId"  style="width: 180px; height: 35px;">
+                                <option value="">--请选择货物名--</option>
+                                <c:forEach items="${goodsIdInContract}" var="goods">
+                                    <option value="${goods.id}">${goods.name}</option>
+                                </c:forEach>
+                            </select>
                         </td>
                         <td height="22" align="center" bgColor="#f5fafe" class="ta_01">
                             照片编码：
@@ -128,7 +149,7 @@
 
         </tr>
         <tr>
-            <td class="ta_01" align="center" bgColor="#afd1f3"><strong>司机列表</strong>
+            <td class="ta_01" align="center" bgColor="#afd1f3"><strong>合同列表</strong>
             </TD>
         </tr>
         <tr>
@@ -151,7 +172,7 @@
                         <td align="center" width="5%"><input type="checkbox" id="ckAllContract" onclick="checkAll();"/>全选或者全不选
                         </td>
                         <td align="center" width="10%">合同名称</td>
-                        <td align="center" width="5%">车辆编号</td>
+                        <td align="center" width="5%">车牌号码</td>
                         <td align="center" width="8%">照片信息</td>
                         <td align="center" width="12%">货物编码</td>
                         <td width="5%" align="center">编辑</td>
@@ -165,9 +186,9 @@
                                 <input type="checkbox" name="ckContractIds" value="${contract.id}"/>
                             </td>
                             <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="5%">${contract.name}</td>
-                            <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="10%">${contract.cheId}</td>
+                            <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="10%">${contract.chepai}</td>
                             <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="5%">${contract.photoId}</td>
-                            <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="8%">${contract.huowuId}</td>
+                            <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="8%">${contract.huowuName}</td>
                             <td align="center" style="HEIGHT: 22px" width="5%">
                                 <a href="${pageContext.request.contextPath}/FindContractByIdServlet?id=${contract.id}">
                                     <img src="${pageContext.request.contextPath}/admin/images/i_edit.gif" border="0"

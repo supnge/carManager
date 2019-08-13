@@ -7,7 +7,7 @@ public class PageResult<T> {
     private long totalCount;
     private int totalPage;
     private int currentPage;
-    private int pageCount = 5;
+    private int pageCount = 15;
 
     public List<T> getList() {
         return list;

@@ -33,8 +33,8 @@ public class SearchGoodsServlet extends HttpServlet {
         try {
 
             PageResult<THuowu> goodsPageResult = tHuoWuService.searchGoodByCondition( name,  danjia,  carId, carZaizhong, zongjia, Integer.parseInt(page));
-            req.setAttribute("goodsPageResult", goodsPageResult);
-            req.getRequestDispatcher("/admin/products/goodsList.jsp").forward(req, resp);
+
+            GoodsPageResultUtils.forwardToListPage(goodsPageResult, req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }

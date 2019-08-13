@@ -15,6 +15,14 @@ import java.util.Date;
 import java.util.List;
 
 public class THuoWuDaoImpl implements THuoWuDao {
+
+    @Override
+    public List<THuowu> findAllHuowu() throws SQLException {
+        QueryRunner queryRunner = new QueryRunner(DbUtils.getDataSource());
+        List<THuowu> huowus = queryRunner.query("select * from t_huowu where 1=1 " + "and del='1' ", new BeanListHandler<>(THuowu.class));
+        return huowus;
+    }
+
     @Override
     public PageResult<THuowu> findGoodsWithPageCount(int page) throws SQLException {
         QueryRunner queryRunner = new QueryRunner(DbUtils.getDataSource());
@@ -23,7 +31,7 @@ public class THuoWuDaoImpl implements THuoWuDao {
         //设置当前码
         pageResult.setCurrentPage(page);
         //总条数
-        List<THuowu> huowus = queryRunner.query("select * from t_huowu where 1=1 "+"and del='1' ", new BeanListHandler<>(THuowu.class));
+        List<THuowu> huowus = queryRunner.query("select * from t_huowu where 1=1 " + "and del='1' ", new BeanListHandler<>(THuowu.class));
         /*
         int totalCount = huowus.size();
         pageResult.setTotalCount(totalCount);
@@ -35,7 +43,7 @@ public class THuoWuDaoImpl implements THuoWuDao {
 
         //设置当前查询到的数据
         String sql = "select * from t_huowu where 1=1 and del='1' order by id limit ?, ? ";
-        int start = pageResult.getPageCount()*(page-1);
+        int start = pageResult.getPageCount() * (page - 1);
         List<THuowu> list = queryRunner.query(sql, new BeanListHandler<>(THuowu.class), start, pageResult.getPageCount());
 
         pageResult.setList(list);
@@ -63,13 +71,13 @@ public class THuoWuDaoImpl implements THuoWuDao {
         String updateDate = sp.format(new Date());
 
         int result = queryRunner.update("update t_huowu set name = ?, danjia=?, carId=?, carZaizhong=?, zongjia=?, remark=?, updateDate=? where id=? and del='1' ",
-                tHuowu.getName(), tHuowu.getDanjia(), tHuowu.getCarId(), tHuowu.getCarZaizhong(),tHuowu.getZongjia(), tHuowu.getRemark(), updateDate, tHuowu.getId());
-        System.out.println("更新对象为："+ tHuowu.getName() +"更新结果为："+ result);
+                tHuowu.getName(), tHuowu.getDanjia(), tHuowu.getCarId(), tHuowu.getCarZaizhong(), tHuowu.getZongjia(), tHuowu.getRemark(), updateDate, tHuowu.getId());
+        System.out.println("更新对象为：" + tHuowu.getName() + "更新结果为：" + result);
         return result;
     }
 
     @Override
-    public PageResult<THuowu>  searchGoodByCondition(String name, String danjia, String carId, String carZaizhong, String zongjia, int page) throws SQLException {
+    public PageResult<THuowu> searchGoodByCondition(String name, String danjia, String carId, String carZaizhong, String zongjia, int page) throws SQLException {
         QueryRunner queryRunner = new QueryRunner(DbUtils.getDataSource());
 
         //设置当前码
@@ -96,14 +104,15 @@ public class THuoWuDaoImpl implements THuoWuDao {
         QueryRunner queryRunner = new QueryRunner(DbUtils.getDataSource());
         int result = queryRunner.update("insert into t_huowu (name, danjia, carId,carZaizhong, zongjia, insertDate, updateDate, remark, del) " +
                         "values(?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                tHuowu.getName(), tHuowu.getDanjia(), tHuowu.getCarId(),tHuowu.getCarZaizhong(), tHuowu.getZongjia(),
-                DateUtils.dataFormat(), DateUtils.dataFormat(),tHuowu.getRemark(), tHuowu.getDel());
-        System.out.println("新增数据为："+ tHuowu.getName());
+                tHuowu.getName(), tHuowu.getDanjia(), tHuowu.getCarId(), tHuowu.getCarZaizhong(), tHuowu.getZongjia(),
+                DateUtils.dataFormat(), DateUtils.dataFormat(), tHuowu.getRemark(), tHuowu.getDel());
+        System.out.println("新增数据为：" + tHuowu.getName());
         return result;
     }
 
     /**
      * 虽然是删除功能，但只是更新数据，不在界面上进行展示，数据依然留存
+     *
      * @param id
      * @return
      * @throws SQLException
@@ -118,7 +127,7 @@ public class THuoWuDaoImpl implements THuoWuDao {
 
         int result = queryRunner.update("update t_huowu set del= 2, deleteDate=? where id =?", delDate, id);
 
-        System.out.println(1==result? "删除编号为："+id+" 成功": "删除编号为："+id+" 失败");
+        System.out.println(1 == result ? "删除编号为：" + id + " 成功" : "删除编号为：" + id + " 失败");
 
         return result;
     }

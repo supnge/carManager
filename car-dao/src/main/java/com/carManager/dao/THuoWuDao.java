@@ -2,10 +2,14 @@ package com.carManager.dao;
 
 import com.carManager.domain.PageResult;
 import com.carManager.domain.THuowu;
+import org.springframework.jdbc.object.SqlCall;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface THuoWuDao {
+
+    public List<THuowu> findAllHuowu() throws SQLException;
 
     public PageResult<THuowu> findGoodsWithPageCount(int page) throws SQLException;
 

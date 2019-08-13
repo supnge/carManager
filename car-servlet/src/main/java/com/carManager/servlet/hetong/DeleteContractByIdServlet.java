@@ -1,6 +1,8 @@
 package com.carManager.servlet.hetong;
 
 
+import com.carManager.domain.PageResult;
+import com.carManager.domain.THetong;
 import com.carManager.service.THeTongService;
 import com.carManager.service.impl.THeTongServiceImpl;
 
@@ -28,8 +30,10 @@ public class DeleteContractByIdServlet extends HttpServlet {
         try {
             tHeTongService.deleteContractById(Integer.parseInt(id));
             //跳转
-            req.setAttribute("contractPageResult", tHeTongService.findContractsWithPageCount(Integer.parseInt(page)));
-            req.getRequestDispatcher("/admin/products/contractList.jsp").forward(req, resp);
+
+            PageResult<THetong> contractPageResult = tHeTongService.findContractsWithPageCount(Integer.parseInt(page));
+
+            ContractPageResultUtils.forwardToListPage(contractPageResult, req, resp);
 
         } catch (SQLException e) {
             e.printStackTrace();

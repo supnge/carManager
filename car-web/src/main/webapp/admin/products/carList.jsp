@@ -8,14 +8,26 @@
           rel="stylesheet" type="text/css"/>
     <script language="javascript"
             src="${pageContext.request.contextPath}/admin/js/public.js"></script>
+    <%--下拉选择--%>
+    <link href="${pageContext.request.contextPath}/admin/css/jquery.searchableSelect.css" rel="stylesheet"
+          type="text/css">
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery-1.11.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery.searchableSelect.js"></script>
+
     <script type="text/javascript">
+        $(function () {
+            $('#chepai').searchableSelect();
+            $('#sijiId').searchableSelect();
+
+        });
+
         function addProduct() {
             window.location.href = "${pageContext.request.contextPath}/CarAddServlet";
             <%--window.location.href = "${pageContext.request.contextPath}/admin/products/carAdd.jsp";--%>
         }
 
         function deleteById(id, chepai) {
-            if (confirm('是否要删除[' + chepai + ']?')) {
+            if (confirm('车辆信息关联货物、合同信息、出车记录，请谨慎删除！！！！是否要删除[' + chepai + ']?')) {
                 location.href = '${pageContext.request.contextPath}/DeleteCarByIdServlet?id=' + id;
             }
         }
@@ -75,10 +87,30 @@
                         <td height="22" align="center" bgColor="#f5fafe" class="ta_01">
                             车牌:
                         </td>
-                        <td class="ta_01" bgColor="#ffffff"><input type="text"
-                                                                   name="chepai" size="15" value="" id="Form1_userName2"
-                                                                   class="bg"/>
+                        <td class="ta_01" bgColor="#ffffff">
+                            <select id="chepai" class="textbox combo" name="cheId" style="width: 180px; height: 35px;">
+                                <option value="">--请选择车牌号--</option>
+                                <c:forEach items="${carPageResult.list}" var="car">
+                                    <option value="${car.chepai}">${car.chepai}</option>
+                                </c:forEach>
+                            </select>
                         </td>
+
+                        <td height="22" align="center" bgColor="#f5fafe" class="ta_01">
+                            司机：
+                        </td>
+                        <td class="ta_01" bgColor="#ffffff">
+                            <select id="sijiId" class="textbox combo" name="sijiId" style="width: 180px; height: 35px;">
+                                <option value="">--请选择司机--</option>
+                                <c:forEach items="${tSijiList}" var="driver">
+                                    <option value="${driver.id}">${driver.name}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+
+
+                    <tr>
                         <td height="22" align="center" bgColor="#f5fafe" class="ta_01">
                             车型：
                         </td>
@@ -90,19 +122,6 @@
                                 <option value="货车">货车</option>
                                 <option value="轿车">轿车</option>
                             </select>
-                        </td>
-
-                    </tr>
-
-
-
-                    <tr>
-                        <td height="22" align="center" bgColor="#f5fafe" class="ta_01">
-                            司机：
-                        </td>
-                        <td class="ta_01" bgColor="#ffffff"><input type="text"
-                                                                   name="sijiId" size="15" value="" id="Form1_userName"
-                                                                   class="bg"/>
                         </td>
 
                         <td height="22" align="center" bgColor="#f5fafe" class="ta_01">
@@ -183,9 +202,9 @@
                             </td>
                             <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="5%">${car.chepai}</td>
                             <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="10%">${car.chexing}</td>
-                            <td style="CURSOR: hand; HEIGHT: 22px" align="center"  width="5%">${car.chuchangriqi}</td>
+                            <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="5%">${car.chuchangriqi}</td>
                             <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="8%">${car.zaizhongliang}</td>
-                            <td style="CURSOR: hand; HEIGHT: 22px" width="15%" align="center" >${car.driverName}</td>
+                            <td style="CURSOR: hand; HEIGHT: 22px" width="15%" align="center">${car.driverName}</td>
                             <td style="CURSOR: hand; HEIGHT: 22px" width="15%" align="center">${car.shiyouleixing}</td>
                             <td align="center" style="HEIGHT: 22px" width="5%"><a
                                     href="${pageContext.request.contextPath}/FindCarByIdServlet?id=${car.id}&sijiId=${car.sijiId}">

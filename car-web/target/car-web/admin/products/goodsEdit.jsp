@@ -8,14 +8,31 @@
           type="text/css" rel="stylesheet">
     <script language="javascript"
             src="${pageContext.request.contextPath}/admin/js/public.js"></script>
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery-3.4.1.js"></script>
     <script language="javascript"
             src="${pageContext.request.contextPath}/admin/js/check.js"></script>
 
 </HEAD>
 <script type="text/javascript">
+    function jisuan(){
+        $("#zongjia").val(parseFloat($("#danjia").val())*parseFloat($("#carZaizhong").val()));
+        console.log("zongjia:"+$("#zongjia").val());
 
+    }
+    //设置类别的默认值
+    function setProductCategory(c) {
+        var category = document.getElementById("carId");
+
+        var ops = category.options;
+        for (var i = 0; i < ops.length; i++) {
+
+            if (ops[i].value == c) {
+                ops[i].selected = true;
+            }
+        }
+    };
 </script>
-<body>
+<body onload="setProductCategory('${goods.carId }')">
 <form id="userAction_save_do" name="Form1"
       action="${pageContext.request.contextPath}/UpdateGoodsServlet" method="post">
 
@@ -31,25 +48,31 @@
                 <input type="text" name="name" class="bg" value="${goods.name }"/>
                 <input type="hidden" name="id" value="${goods.id }">
             </td>
-            <td align="center" bgColor="#f5fafe" class="ta_01">单价：</td>
+
+            <td align="center" bgColor="#f5fafe" class="ta_01">车牌号码：</td>
             <td class="ta_01" bgColor="#ffffff">
-                <input type="text" width="100%" name="danjia" class="bg" value="${goods.danjia}"/>
+                <select id="carId" class="textbox combo" name="carId" style="width: 180px; height: 35px;">
+                    <c:forEach items="${carList}" var="car">
+                        <option value="${car.id}">${car.chepai}</option>
+                    </c:forEach>
+                </select>
             </td>
         </tr>
         <tr>
+            <td align="center" bgColor="#f5fafe" class="ta_01">单价：</td>
+            <td class="ta_01" bgColor="#ffffff">
+                <input type="text" width="100%" name="danjia" class="bg" id="danjia" onkeyup="jisuan()" value="${goods.danjia}"/>
+            </td>
 
-            <td align="center" bgColor="#f5fafe" class="ta_01">车辆编码：</td>
-            <td class="ta_01" bgColor="#ffffff"><input type="text"
-                                                       name="carId" class="bg" value="${goods.carId}"/></td>
             <td align="center" bgColor="#f5fafe" class="ta_01">车辆载重：</td>
             <td class="ta_01" bgColor="#ffffff"><input type="text"
-                                                       name="carZaizhong" class="bg" value="${goods.carZaizhong}"/></td>
+                                                       name="carZaizhong" id="carZaizhong" onkeyup="jisuan()" value="${goods.carZaizhong}" /></td>
         </tr>
 
         <tr>
             <td align="center" bgColor="#f5fafe" class="ta_01">总价：</td>
             <td class="ta_01" bgColor="#ffffff"><input type="text"
-                                                       name="zongjia" class="bg" value="${goods.zongjia}"/></td>
+                                                       name="zongjia" id="zongjia" class="bg" value="${goods.zongjia}" readonly="readonly"/></td>
             <td bgColor="#f5fafe"></td>
             <td bgColor="#ffffff"></td>
         </tr>

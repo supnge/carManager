@@ -1,12 +1,27 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <HTML>
 <HEAD>
     <meta http-equiv="Content-Language" content="zh-cn">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <LINK href="${pageContext.request.contextPath}/admin/css/Style.css"
           type="text/css" rel="stylesheet">
-    <script language="javascript" type="text/javascript" src="${pageContext.request.contextPath}/admin/js/My97DatePicker/WdatePicker.js"></script>
+    <%--日历--%>
+    <script language="javascript" type="text/javascript"
+            src="${pageContext.request.contextPath}/admin/js/My97DatePicker/WdatePicker.js"></script>
 
+    <%--下拉选择--%>
+    <link href="${pageContext.request.contextPath}/admin/css/jquery.searchableSelect.css" rel="stylesheet"
+          type="text/css">
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery-1.11.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery.searchableSelect.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('select').searchableSelect();
+        });
+    </script>
 </HEAD>
 
 <body>
@@ -20,14 +35,16 @@
                 height="26"><strong><STRONG>添加出车记录</STRONG> </strong>
             </td>
         </tr>
-
-
-
-
         <tr>
             <td align="center" bgColor="#f5fafe" class="ta_01">车辆选择：</td>
             <td class="ta_01" bgColor="#ffffff">
-                <input type="text" name="cheId" class="bg" value="${record.cheId }"/>
+                <select id="distribute_type" class="textbox combo" id="cheId" name="cheId"
+                        style="width: 180px; height: 35px;">
+                    <option value="">请选择</option>
+                    <c:forEach items="${tCheList}" var="car">
+                        <option value="${car.id}">${car.chepai}</option>
+                    </c:forEach>
+                </select>
                 <input type="hidden" name="id" value="${record.id }">
             </td>
             <td align="center" bgColor="#f5fafe" class="ta_01">油卡类型：</td>
@@ -43,11 +60,13 @@
 
             <td align="center" bgColor="#f5fafe" class="ta_01">开出时间：</td>
             <td class="ta_01" bgColor="#ffffff">
-                <input type="text" name="kaichushijian" class="bg" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" value="${record.kaichushijian}"/>
+                <input type="text" name="kaichushijian" class="bg" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
+                       value="${record.kaichushijian}"/>
             </td>
             <td align="center" bgColor="#f5fafe" class="ta_01">回来时间：</td>
             <td class="ta_01" bgColor="#ffffff" width="200px">
-                <input type="text" width="100%" name="huilaishijian" class="bg" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" value="${record.huilaishijian}"/>
+                <input type="text" name="huilaishijian" class="bg" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
+                       value="${record.huilaishijian}"/>
             </td>
         </tr>
 

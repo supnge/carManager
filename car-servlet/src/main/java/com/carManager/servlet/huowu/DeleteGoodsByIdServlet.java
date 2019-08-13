@@ -1,6 +1,8 @@
 package com.carManager.servlet.huowu;
 
 
+import com.carManager.domain.PageResult;
+import com.carManager.domain.THuowu;
 import com.carManager.service.THuoWuService;
 import com.carManager.service.impl.THuoWuServiceImpl;
 
@@ -27,9 +29,9 @@ public class DeleteGoodsByIdServlet extends HttpServlet {
 
         try {
             tHuoWuService.deleteGoodById(Integer.parseInt(id));
-            //跳转
-            req.setAttribute("goodsPageResult", tHuoWuService.findGoodsWithPageCount(Integer.parseInt(page)));
-            req.getRequestDispatcher("/admin/products/goodsList.jsp").forward(req, resp);
+            PageResult<THuowu> goodsPageResult = tHuoWuService.findGoodsWithPageCount(Integer.parseInt(page));
+
+            GoodsPageResultUtils.forwardToListPage(goodsPageResult, req, resp);
 
         } catch (SQLException e) {
             e.printStackTrace();

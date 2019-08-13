@@ -1,9 +1,11 @@
 package com.carManager.servlet.chuche;
 
 import com.carManager.domain.PageResult;
+import com.carManager.domain.TChe;
 import com.carManager.domain.TChuche;
 import com.carManager.service.TChuCheService;
 import com.carManager.service.impl.TChuCheServiceImpl;
+import com.carManager.servlet.che.CarUtils;
 import com.carManager.utils.DateUtils;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -16,7 +18,9 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet("/AddRecordServlet")
 public class AddRecordServlet extends HttpServlet {
@@ -43,11 +47,7 @@ public class AddRecordServlet extends HttpServlet {
 
             PageResult<TChuche> recordPageResult = tChuCheService.findRecordsWithPageCount(Integer.parseInt(page));
 
-            if (recordPageResult != null) {
-
-                req.setAttribute("recordPageResult", recordPageResult);
-                req.getRequestDispatcher("/admin/products/recordList.jsp").forward(req, resp);
-            }
+            RecordPageResultUtils.forwardToListPage(recordPageResult, req, resp);
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();

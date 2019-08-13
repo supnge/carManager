@@ -8,13 +8,23 @@
 	rel="stylesheet" type="text/css" />
 <script language="javascript"
 	src="${pageContext.request.contextPath}/admin/js/public.js"></script>
+	<%--下拉选择--%>
+	<link href="${pageContext.request.contextPath}/admin/css/jquery.searchableSelect.css" rel="stylesheet"
+		  type="text/css">
+	<script src="${pageContext.request.contextPath}/admin/jquery/jquery-1.11.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/admin/jquery/jquery.searchableSelect.js"></script>
+
 <script type="text/javascript">
+	$(function () {
+		$('select').searchableSelect();
+	});
 	function addProduct() {
-		window.location.href = "${pageContext.request.contextPath}/admin/products/goodsAdd.jsp";
+		window.location.href = "${pageContext.request.contextPath}/GoodsAddServlet";
+		<%--window.location.href = "${pageContext.request.contextPath}/admin/products/goodsAdd.jsp";--%>
 	}
 
 	function deleteById(id,name) {
-		if(confirm('是否要删除[' + name + ']?')){
+		if(confirm('货物信息与合同信息关联，谨慎删除！！！是否要删除[' + name + ']?')){
 			location.href = '${pageContext.request.contextPath}/DeleteGoodsByIdServlet?id=' + id;
 		}
 	}
@@ -49,7 +59,7 @@
 		//3.调用Servlet方法删除司机
 		if(ids == '') return;//空字符串就不用删除了
 
-		if(confirm('要删除的司机为[' + ids + ']?')){
+		if(confirm('要删除的货物为[' + ids + ']?')){
 			location.href = '${pageContext.request.contextPath}/DeleteAllGoodsServlet?ids=' + ids;
 		}
 	}
@@ -73,23 +83,28 @@
 
 							<tr>
 								<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
-									货物名称：</td>
-								<td class="ta_01" bgColor="#ffffff"><input type="text"
-									name="name" size="15" value="" id="Form1_Name" class="bg" />
+									车辆编码：</td>
+								<td class="ta_01" bgColor="#ffffff">
+									<select id="cheIdSeclect"  class="textbox combo" name="carId"  style="width: 180px; height: 35px;">
+										<option value="">--请选择车牌号--</option>
+										<c:forEach items="${cheIdInGoods}" var="record">
+											<option value="${record.id}">${record.chepai}</option>
+										</c:forEach>
+									</select>
 								</td>
 
 								<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
-									单价：</td>
-								<td class="ta_01" bgColor="#ffffff">
-									<input type="text" name="danjia" size="15" value="" id="danjia" class="bg" />
+									货物名称：</td>
+								<td class="ta_01" bgColor="#ffffff"><input type="text"
+																		   name="name" size="15" value="" id="Form1_Name" class="bg" />
 								</td>
 							</tr>
 
 							<tr>
 								<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
-									车辆编码：</td>
-								<td class="ta_01" bgColor="#ffffff"><input type="text"
-																		   name="carId" size="15" value="" id="carId" class="bg" />
+									单价：</td>
+								<td class="ta_01" bgColor="#ffffff">
+									<input type="text" name="danjia" size="15" value="" id="danjia" class="bg" />
 								</td>
 
 								<td height="22" align="center" bgColor="#f5fafe" class="ta_01">
@@ -143,7 +158,7 @@
 								<td align="center" width="5%"><input type="checkbox" id="ckAllGoods" onclick="checkAll();"/>全选或者全不选</td>
 								<td align="center" width="10%">货物名称</td>
 								<td align="center" width="5%">单价</td>
-								<td align="center" width="8%">车辆编号</td>
+								<td align="center" width="8%">车牌号码</td>
 								<td align="center" width="12%">车辆载重</td>
 								<td align="center" width="15%">总价</td>
 								<td width="5%" align="center">编辑</td>
@@ -158,7 +173,7 @@
 									</td>
 									<td style="CURSOR: hand; HEIGHT: 22px" width="15%" align="center">${goods.name}</td>
 									<td style="CURSOR: hand; HEIGHT: 22px" width="13%" align="center">${goods.danjia}</td>
-									<td style="CURSOR: hand; HEIGHT: 22px" width="12%" align="center">${goods.carId}</td>
+									<td style="CURSOR: hand; HEIGHT: 22px" width="12%" align="center">${goods.chepai}</td>
 									<td style="CURSOR: hand; HEIGHT: 22px" width="12%" align="center">${goods.carZaizhong}</td>
 									<td style="CURSOR: hand; HEIGHT: 22px" width="12%" align="center">${goods.zongjia}
 										<input type="hidden" name="remark" value="${goods.remark}">

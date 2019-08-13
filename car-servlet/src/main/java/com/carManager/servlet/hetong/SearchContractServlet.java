@@ -32,8 +32,9 @@ public class SearchContractServlet extends HttpServlet {
 
         try {
             PageResult<THetong> contractPageResult = tHeTongService.searchContractByCondition( cheId, name,  photoId,  huowuId, Integer.parseInt(page));
-            req.setAttribute("contractPageResult", contractPageResult);
-            req.getRequestDispatcher("/admin/products/contractList.jsp").forward(req, resp);
+
+            ContractPageResultUtils.forwardToListPage(contractPageResult, req, resp);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

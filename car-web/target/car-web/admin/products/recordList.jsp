@@ -8,30 +8,38 @@
           rel="stylesheet" type="text/css"/>
     <script language="javascript"
             src="${pageContext.request.contextPath}/admin/js/public.js"></script>
+    <%--下拉选择--%>
     <link href="${pageContext.request.contextPath}/admin/css/jquery.searchableSelect.css" rel="stylesheet"
           type="text/css">
     <script src="${pageContext.request.contextPath}/admin/jquery/jquery-1.11.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/admin/jquery/jquery.searchableSelect.js"></script>
+    <%--日历--%>
     <script language="javascript" type="text/javascript"
             src="${pageContext.request.contextPath}/admin/js/My97DatePicker/WdatePicker.js"></script>
 
     <script type="text/javascript">
 
         $(function () {
+
+            // 这个功能会与下面的去重复冲突，不知道啥情况
             $('select').searchableSelect();
 
-            $("select option").each(function() {
+            // $("#cheIdSeclect").click(function() {
+            //     console.log("开始去重");
+            //     $("select option").each(function() {
+            //         text = $(this).text();
+            //         if($("select option:contains("+text+")").length > 1)
+            //             $("select option:contains("+text+"):gt(0)").remove();
+            //     });
+            // });
 
-                text = $(this).text();
-                console.log(text);
-                if($("select option:contains("+text+")").length > 1)
-                    $("select option:contains("+text+"):gt(0)").remove();
-            });
+
         });
 
 
         function addProduct() {
-            window.location.href = "${pageContext.request.contextPath}/admin/products/recordAdd.jsp";
+            window.location.href = "${pageContext.request.contextPath}/RecordAddServlet";
+            <%--window.location.href = "${pageContext.request.contextPath}/admin/products/recordAdd.jsp";--%>
         }
 
         function deleteById(id, name) {
@@ -96,10 +104,10 @@
                             车辆编号
                         </td>
                         <td class="ta_01" bgColor="#ffffff">
-                            <select id="cheId"  class="textbox combo" name="cheId"  style="width: 180px; height: 35px;">
-                                <option value="${record.cheId}">--请选择车牌号--</option>
-                                <c:forEach items="${recordPageResult.list}" var="record">
-                                    <option value="${record.cheId}">${record.chepai}</option>
+                            <select id="cheIdSeclect"  class="textbox combo" name="cheId"  style="width: 180px; height: 35px;">
+                                <option value="">--请选择车牌号--</option>
+                                <c:forEach items="${cheIdInRecord}" var="record">
+                                    <option value="${record.id}">${record.chepai}</option>
                                 </c:forEach>
                             </select>
                         </td>

@@ -21,6 +21,7 @@
     this.searchableElement.click(function(event){
       // event.stopPropagation();
       _this.show();
+
     }).on('keydown', function(event){
       if (event.which === 13 || event.which === 40 || event.which == 38){
         event.preventDefault();

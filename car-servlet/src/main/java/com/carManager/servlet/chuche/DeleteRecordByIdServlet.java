@@ -1,8 +1,12 @@
 package com.carManager.servlet.chuche;
 
 
+import com.carManager.domain.PageResult;
+import com.carManager.domain.TChe;
+import com.carManager.domain.TChuche;
 import com.carManager.service.TChuCheService;
 import com.carManager.service.impl.TChuCheServiceImpl;
+import com.carManager.servlet.che.CarUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/DeleteRecordByIdServlet")
 public class DeleteRecordByIdServlet extends HttpServlet {
@@ -27,10 +33,8 @@ public class DeleteRecordByIdServlet extends HttpServlet {
 
         try {
             tChuCheService.deleteRecordById(Integer.parseInt(id));
-            //跳转
-            req.setAttribute("recordPageResult", tChuCheService.findRecordsWithPageCount(Integer.parseInt(page)));
-            req.getRequestDispatcher("/admin/products/recordList.jsp").forward(req, resp);
-
+            PageResult<TChuche> recordPageResult = tChuCheService.findRecordsWithPageCount(Integer.parseInt(page));
+            RecordPageResultUtils.forwardToListPage(recordPageResult, req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }

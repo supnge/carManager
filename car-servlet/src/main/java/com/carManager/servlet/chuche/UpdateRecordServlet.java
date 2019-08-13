@@ -1,12 +1,13 @@
 package com.carManager.servlet.chuche;
 
 import com.carManager.domain.PageResult;
+import com.carManager.domain.TChe;
 import com.carManager.domain.TChuche;
-import com.carManager.domain.TSiji;
 import com.carManager.service.TCheService;
 import com.carManager.service.TChuCheService;
 import com.carManager.service.impl.TCheServiceImpl;
 import com.carManager.service.impl.TChuCheServiceImpl;
+import com.carManager.servlet.che.CarUtils;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 @WebServlet("/UpdateRecordServlet")
 public class UpdateRecordServlet extends HttpServlet {
@@ -44,18 +47,8 @@ public class UpdateRecordServlet extends HttpServlet {
             tChuCheService.updateRecord(tChuche);
 
             PageResult<TChuche> recordPageResult = tChuCheService.findRecordsWithPageCount(Integer.parseInt(page));
+            RecordPageResultUtils.forwardToListPage(recordPageResult, req, resp);
 
-            if(recordPageResult !=null) {
-
-                for (Iterator iterator = recordPageResult.getList().iterator(); iterator.hasNext(); ) {
-                    tChuche = (TChuche) iterator.next();
-                    tChuche.setChepai(tCheService.findCarById(tChuche.getCheId()).getChepai());
-                }
-
-                //跳转
-                req.setAttribute("recordPageResult", recordPageResult);
-                req.getRequestDispatcher("/admin/products/recordList.jsp").forward(req, resp);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
