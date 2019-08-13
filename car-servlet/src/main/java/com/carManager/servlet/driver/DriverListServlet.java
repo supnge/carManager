@@ -31,7 +31,9 @@ public class DriverListServlet extends HttpServlet {
             PageResult<TSiji> pageResult = tSijiService.findDriversWithPageCount(Integer.parseInt(page));
 
             if (pageResult != null) {
-
+                req.setAttribute("nameList",DriverUtils.removeDuplicateValues(DriverUtils.getAttr(pageResult.getList(), "name")));
+                req.setAttribute("telList",DriverUtils.removeDuplicateValues(DriverUtils.getAttr(pageResult.getList(), "tel")));
+                req.setAttribute("oilCardList",DriverUtils.removeDuplicateValues(DriverUtils.getAttr(pageResult.getList(), "oilCard")));
                 req.setAttribute("pageResult", pageResult);
                 req.getRequestDispatcher("/admin/products/driverList.jsp").forward(req, resp);
             }

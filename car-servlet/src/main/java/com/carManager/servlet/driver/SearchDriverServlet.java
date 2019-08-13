@@ -32,6 +32,9 @@ public class SearchDriverServlet extends HttpServlet {
 
         try {
             PageResult<TSiji> pageResult = tSijiService.searchDriverByCondition(name, sex, tel,oilCard, Integer.parseInt(page));
+            req.setAttribute("nameList",DriverUtils.removeDuplicateValues(DriverUtils.getAttr(pageResult.getList(), "name")));
+            req.setAttribute("telList",DriverUtils.removeDuplicateValues(DriverUtils.getAttr(pageResult.getList(), "tel")));
+            req.setAttribute("oilCardList",DriverUtils.removeDuplicateValues(DriverUtils.getAttr(pageResult.getList(), "oilCard")));
 
             req.setAttribute("pageResult", pageResult);
             req.getRequestDispatcher("/admin/products/driverList.jsp").forward(req, resp);

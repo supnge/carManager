@@ -6,6 +6,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <LINK href="${pageContext.request.contextPath}/admin/css/Style.css"
           type="text/css" rel="stylesheet">
+    <%--下拉选择--%>
+    <link href="${pageContext.request.contextPath}/admin/css/jquery.searchableSelect.css" rel="stylesheet"
+          type="text/css">
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery-1.11.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/admin/jquery/jquery.searchableSelect.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#sijiId').searchableSelect();
+        });
+    </script>
 </HEAD>
 
 <body>
@@ -53,7 +64,7 @@
 
             <td align="center" bgColor="#f5fafe" class="ta_01">司机：</td>
             <td class="ta_01" bgColor="#ffffff">
-                <select id="distribute_type"  class="textbox combo" name="sijiId" style="width: 180px; height: 35px;">
+                <select id="sijiId"  class="textbox combo" name="sijiId" style="width: 180px; height: 35px;">
                     <option value="">请选择</option>
                     <c:forEach items="${driverList}" var="driver">
                         <option value="${driver.id}">${driver.name}</option>

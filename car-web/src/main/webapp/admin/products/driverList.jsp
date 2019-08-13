@@ -87,8 +87,8 @@
 								<td class="ta_01" bgColor="#ffffff">
 									<select id="cheIdSeclect"  class="textbox combo" name="name"  style="width: 180px; height: 35px;">
 										<option value="">--请选择--</option>
-										<c:forEach items="${pageResult.list}" var="driver">
-											<option value="${driver.name}">${driver.name}</option>
+										<c:forEach items="${nameList}" var="name">
+											<option value="${name}">${name}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -109,8 +109,8 @@
 								<td class="ta_01" bgColor="#ffffff">
 									<select id="tel"  class="textbox combo" name="tel"  style="width: 180px; height: 35px;">
 										<option value="">--请选择--</option>
-										<c:forEach items="${pageResult.list}" var="driver">
-											<option value="${driver.tel}">${driver.tel}</option>
+										<c:forEach items="${telList}" var="telList">
+											<option value="${telList}">${telList}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -120,8 +120,8 @@
 								<td class="ta_01" bgColor="#ffffff">
 									<select id="oilCard"  class="textbox combo" name="oilCard"  style="width: 180px; height: 35px;">
 										<option value="">--请选择--</option>
-										<c:forEach items="${pageResult.list}" var="driver">
-											<option value="${driver.oilCard}">${driver.oilCard}</option>
+										<c:forEach items="${oilCardList}" var="oilCardList">
+											<option value="${oilCardList}">${oilCardList}</option>
 										</c:forEach>
 									</select>
 								</td>
