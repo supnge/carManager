@@ -45,5 +45,6 @@
 /Users/supeng/IdeaProjects/carManager/car-servlet/src/main/java/com/carManager/servlet/che/CarListServlet.java
 /Users/supeng/IdeaProjects/carManager/car-servlet/src/main/java/com/carManager/servlet/chuche/RecordPageResultUtils.java
 /Users/supeng/IdeaProjects/carManager/car-servlet/src/main/java/com/carManager/servlet/huowu/AddGoodsServlet.java
+/Users/supeng/IdeaProjects/carManager/car-servlet/src/main/java/com/carManager/servlet/driver/DriverPageResultUtils.java
 /Users/supeng/IdeaProjects/carManager/car-servlet/src/main/java/com/carManager/servlet/che/FindCarByIdServlet.java
 /Users/supeng/IdeaProjects/carManager/car-servlet/src/main/java/com/carManager/servlet/huowu/GoodsAddServlet.java
